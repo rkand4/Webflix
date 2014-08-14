@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="log660.model">
+    <class name="Forfait" table="FORFAITS">
+        <id name="idForfait" column="id_forfait">
+            <generator class="increment"/>
+        </id>
+        <property name="cout" column="cout"/>
+        <property name="locationMax" column="location_max"/>
+        <property name="dureeMax" column="duree_max"/>
+    </class>
+</hibernate-mapping>

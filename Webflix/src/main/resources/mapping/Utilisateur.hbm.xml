@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="log660.model">
+    <class name="Utilisateur" table="UTILISATEURS">
+        <id name="idUtilisateur" column="id_utilisateur">
+            <generator class="increment"/>
+        </id>
+        <property name="nom" column="nom"/>
+        <property name="telephone" column="telephone"/>
+        <property name="courriel" column="courriel"/>
+        <property name="motPasse" column="mot_passe"/>
+        <many-to-one name="adresse" class="Adresse" column="id_adresse" unique="true" not-null="true" cascade="all"/>
+        <property name="anniversaire" column="anniversaire"/>
+
+        <joined-subclass name="Client" table="CLIENTS">
+            <key column="id_utilisateur"/>
+            <many-to-one name="carteCredit" class="CarteCredit" column="id_carte" unique="true" not-null="true" cascade="all"/>
+            <many-to-one name="forfait" class="Forfait" column="id_forfait" unique="true" not-null="true" cascade="all"/>
+        </joined-subclass>
+
+        <joined-subclass name="Employe" table="EMPLOYES">
+            <key column="id_utilisateur"/>
+            <property name="matricule" column="matricule"/>
+        </joined-subclass>
+    </class>
+</hibernate-mapping>

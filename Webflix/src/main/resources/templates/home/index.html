@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:replace="head :: #head"/>
+
+<body role="document">
+
+<div th:replace="navbar :: #navbar" />
+
+<!-- Main jumbotron for a primary marketing message or call to action -->
+<div class="jumbotron">
+    <div class="container">
+        <h1>WebFlix</h1>
+        <p>Watch TV shows and movies anytime, anywhere.</p>
+        <p>Get started today!</p>
+        <p><a class="btn btn-primary btn-lg" role="button">Register now &raquo;</a></p>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>New arrivals</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4" th:each="film : ${films}">
+            <h2 th:text="${film.titre}" />
+            <p th:text="${film.resume}"/>
+            <p><a class="btn btn-default" href="/film/1" th:href="@{/film/{idFilm}(idFilm=${film.idFilm})}" role="button">View details &raquo;</a></p>
+        </div>
+    </div>
+
+    <hr />
+</div> <!-- /container -->
+
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="../../js/jquery-2.1.1.min.js" th:src="@{/js/jquery-2.1.1.min.js}" />
+<script src="../../js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}" />
+
+</body>
+
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:replace="head :: #head"/>
+
+<body role="document">
+
+<div th:replace="navbar :: #navbar" />
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Advanced Search</h1>
+            <p>Fields can be seperated by commas to search for multiple values.</p>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <form class="form-horizontal" role="form" >
+                <div class="form-group">
+                    <label for="inputFilmTitle" class="col-sm-2 control-label">Film title</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" name="filmTitle" id="inputFilmTitle" placeholder="Title" th:value="${param.filmTitle} ? ${param.filmTitle[0]}"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputYearStart" class="col-sm-2 control-label">From</label>
+                    <div class="col-sm-4">
+                        <input type="number" min="1900" max="2014" class="form-control" name="yearStart" id="inputYearStart" placeholder="Year" th:value="${param.yearStart} ? ${param.yearStart[0]}"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputYearEnd" class="col-sm-2 control-label">To</label>
+                    <div class="col-sm-4">
+                        <input type="number" min="1900" max="2014"  class="form-control" name="yearEnd" id="inputYearEnd" placeholder="Year" th:value="${param.yearEnd} ? ${param.yearEnd[0]}" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputCountry" class="col-sm-2 control-label">Country</label>
+                    <div class="col-sm-10">
+                        <select class="form-control selectpicker" name="country" title="Country"  id="inputCountry">
+                            <option value="">Country</option>
+                            <option th:each="pay : ${pays}" th:selected="${param.country} ? ${#arrays.contains(param.country, pay.nom)}" >
+                                <span th:text="${pay.nom}">Pays</span>
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputLanguage" class="col-sm-2 control-label">Language</label>
+                    <div class="col-sm-10">
+                        <select class="form-control selectpicker" name="language" title="Language"  id="inputLanguage">
+                            <option value="">Language</option>
+                            <option th:each="langue : ${langues}" th:selected="${param.language} ? ${#arrays.contains(param.language, langue)}">
+                                <span th:text="${langue}">Langue</span>
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputGenre" class="col-sm-2 control-label">Genre</label>
+                    <div class="col-sm-10">
+                        <select class="form-control selectpicker" name="genre" title="Genre"  id="inputGenre" multiple="multiple">
+                            <option th:each="genr : ${genres}" th:value="${genr.titre}" th:selected="${param.genre} ? ${#arrays.contains(param.genre, genr.titre)}">
+                                <span th:text="${genr.titre}">Genre</span>
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputDirectorName" class="col-sm-2 control-label">Directed by</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" name="directorName" id="inputDirectorName" placeholder="Director name" th:value="${param.directorName} ? ${param.directorName[0]}"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputActorName" class="col-sm-2 control-label">With</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" name="actorName" id="inputActorName" placeholder="Actor name" th:value="${param.actorName} ? ${param.actorName[0]}" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-default">Search</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <hr />
+
+    <table class="table table-striped table-bordered table-condensed">
+        <thead>
+        <tr>
+            <th>Titre</th>
+            <th>Année</th>
+            <th>Langue</th>
+            <th>Durée</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="film : ${films}">
+            <td ><a href="/film/1" th:href="@{/film/{idFilm}(idFilm=${film.idFilm})}"><span th:text="${film.titre}">Lord of the Rings</span></a></td>
+            <td th:text="${film.anneeSortie}">2001</td>
+            <td th:text="${film.langueOriginal}">English</td>
+            <td><span th:text="${film.duree}"/>m</td>
+        </tr>
+        </tbody>
+    </table>
+
+
+</div> <!-- /container -->
+
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="../../js/jquery-2.1.1.min.js" th:src="@{/js/jquery-2.1.1.min.js}" />
+<script src="../../js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}" />
+<script src="../../js/bootstrap-select.min.js" th:src="@{/js/bootstrap-select.min.js}" />
+<script type="text/javascript">
+    $(window).on('load', function () {
+        $('.selectpicker').selectpicker();
+    });
+</script>
+
+</body>
+
+</html>

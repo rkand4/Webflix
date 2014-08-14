@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="log660.model">
+    <class name="Film" table="FILMS">
+        <id name="idFilm" column="id_film">
+            <generator class="increment"/>
+        </id>
+        <many-to-one name="realisateur" class="Personne" column="id_personne_realisateur" cascade="all" />
+        <property name="titre" column="titre"/>
+        <property name="anneeSortie" column="annee_sortie"/>
+        <property name="langueOriginal" column="langue_original"/>
+        <property name="duree" column="duree"/>
+        <property name="resume" column="resume"/>
+        <property name="poster" column="poster"/>
+        <set name="genres" table="FILMS_GENRES" cascade="all">
+        	<key column="id_film"/>
+        	<many-to-many column="id_genre" class="Genre"/>
+        </set>
+        <set name="scenaristes" table="FILMS_SCENARISTES" cascade="all">
+        	<key column="id_film"/>
+        	<many-to-many column="id_personne" class="Personne"/>
+        </set>
+        <set name="pays" table="FILMS_PAYS" cascade="all">
+            <key column="id_film"/>
+            <many-to-many column="id_pays" class="Pays"/>
+        </set>
+        <set name="roles" table="ROLES" cascade="all">
+            <key column="id_film"/>
+            <one-to-many class="Role"/>
+        </set>
+
+    </class>
+</hibernate-mapping>

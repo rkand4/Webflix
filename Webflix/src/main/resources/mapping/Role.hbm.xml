@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="log660.model">
+    <class name="Role" table="ROLES">
+        <id name="idRole" column="id_role">
+            <generator class="increment"/>
+        </id>
+        <many-to-one name="film" class="Film" column="id_film" unique="true" not-null="true" cascade="all"/>
+        <many-to-one name="acteur" class="Personne" column="id_personne" unique="true" not-null="true" cascade="all"/>
+        <property name="personnage" column="personnage"/>
+    </class>
+</hibernate-mapping>

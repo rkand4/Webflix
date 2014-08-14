@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="log660.model">
+    <class name="CarteCredit" table="CARTES_CREDITS">
+        <id name="idCarte" column="id_carte">
+            <generator class="increment"/>
+        </id>
+        <property name="typeCarte" column="type_carte"/>
+        <property name="numero" column="numero"/>
+        <property name="expiration" column="expiration"/>
+        <property name="cvv" column="cvv"/>
+    </class>
+</hibernate-mapping>

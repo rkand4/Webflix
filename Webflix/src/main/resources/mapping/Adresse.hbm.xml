@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="log660.model">
+    <class name="Adresse" table="ADRESSES">
+        <id name="idAdresse" column="id_adresse">
+            <generator class="increment"/>
+        </id>
+        <property name="rue" column="rue"/>
+        <property name="province" column="province"/>
+        <property name="codePostal" column="code_postal"/>
+        <property name="ville" column="ville"/>
+    </class>
+</hibernate-mapping>

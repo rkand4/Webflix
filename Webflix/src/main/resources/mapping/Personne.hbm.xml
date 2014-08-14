@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="log660.model">
+    <class name="Personne" table="PERSONNES">
+        <id name="idPersonne" column="id_personne">
+            <generator class="increment"/>
+        </id>
+        <property name="nom" column="nom"/>
+        <property name="anniversaire" column="anniversaire"/>
+        <property name="lieuNaissance" column="lieu_naissance"/>
+        <property name="biographie" column="biographie"/>
+    </class>
+</hibernate-mapping>

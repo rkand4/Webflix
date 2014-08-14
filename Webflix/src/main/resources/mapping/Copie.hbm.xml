@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="log660.model">
+    <class name="Copie" table="COPIES">
+        <id name="idCopie" column="id_Copie">
+            <generator class="increment"/>
+        </id>
+        <many-to-one name="film" class="Film" column="id_film" unique="true" not-null="true" cascade="all"/>
+        <property name="codeCopie" column="code_copie"/>
+        <set name="locations" table="LOCATIONS" cascade="all">
+            <key column="id_copie"/>
+            <one-to-many class="Location"/>
+        </set>
+    </class>
+</hibernate-mapping>

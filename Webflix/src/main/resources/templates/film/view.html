@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:replace="head :: #head"/>
+
+<body role="document">
+
+<div th:replace="navbar :: #navbar" />
+
+<div class="container">
+    <div class="row" th:if="not ${film}">
+        <div class="col-md-12">
+            <h3>Film not found!</h3>
+        </div>
+    </div>
+
+    <br />
+    <div class="alert alert-success alert-dismissable" th:if="${rentSuccess}">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <p th:text="${rentSuccess}">
+            Rent was successful!
+        </p>
+    </div>
+
+    <div class="alert alert-error alert-dismissable" th:if="${rentError}">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <p th:text="${rentError}">
+            Rent failed!
+        </p>
+    </div>
+
+
+    <div class="row" th:if="${film}">
+        <div class="col-md-12">
+            <h3 th:text="${film.titre}">Film Name</h3>
+            <p th:text="${film.resume}">Short Bio</p>
+
+            <div class="row">
+                <div class="col-md-2">
+                    <img style="float:right;" th:src="${film.poster}" />
+                </div>
+
+
+            <div class="col-md-10">
+                <form class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Year</label>
+                        <div class="col-sm-10">
+                            <p class="form-control-static" th:text="${film.anneeSortie}">2014</p>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Language</label>
+                        <div class="col-sm-10">
+                            <p class="form-control-static" th:text="${film.langueOriginal}">Français</p>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Duration</label>
+                        <div class="col-sm-10">
+                            <p class="form-control-static" th:text="${film.duree} + 'm'">120</p>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Genres</label>
+                        <div class="col-sm-10">
+                            <p class="form-control-static">
+                            <span th:each="genre : ${film.genres}">
+                                <span class="label label-default" th:text="${genre.titre}">Genre</span>
+                            </span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Director</label>
+                        <div class="col-sm-10">
+                            <p class="form-control-static" th:text="${film.realisateur.nom}">Nom du realisateur</p>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Scenaristes</label>
+                        <div class="col-sm-10">
+                            <ul class="list-unstyled">
+                                <li th:each="scenariste : ${film.scenaristes}">
+                                    <span th:text="${scenariste.nom}">Nom d'un scenariste</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </form>
+
+            </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    Availability: <span th:text="${nbCopiesDisponible}"></span>
+                </div>
+                <div class="col-md-6">
+                    <form method="post" th:action="@{/film/{idFilm}/rent(idFilm=${film.idFilm})}" role="form">
+                        <div th:if="${utilisateur} and ${nbLocationsClient} ge ${utilisateur.forfait.locationMax}">
+                            <button type="button" class="btn btn-disabled">Disabled Rent a copie!</button>
+                        </div>
+                        <div th:unless="${utilisateur} and ${nbLocationsClient} ge ${utilisateur.forfait.locationMax}">
+                            <button type="submit" class="btn btn-success">Rent a copie!</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+
+
+</div> <!-- /container -->
+
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="../../js/jquery-2.1.1.min.js" th:src="@{/js/jquery-2.1.1.min.js}" />
+<script src="../../js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}" />
+
+</body>
+
+</html>
